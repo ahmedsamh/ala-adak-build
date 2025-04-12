@@ -1,0 +1,30 @@
+on:
+  push:
+    branches:
+      - main
+
+name:  Deploy website on push
+jobs:
+  web-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name:  Get latest code
+        uses: actions/checkout@v3
+
+      - name:  Sync files to server
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: 147.79.103.202
+          username: u318912154.3alaQdak
+          password: 3alaQdak@123
+          local-dir: ./
+          server-dir: /admin/
+          exclude: |
+            **/.git*
+            **/node_modules/**
+            **/.env
+            **/.env.example
+            **/composer.lock
+            **/package-lock.json
+            **/.htaccess
+            **/storage/**
